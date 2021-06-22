@@ -17,14 +17,16 @@ namespace Guohui.BudgetTracker.Infrastructure.Repositories
 
         }
 
-        public Task<User> GetUserByEmail(string email)
+        public async Task<User> GetUserByEmail(string email)
         {
-            throw new NotImplementedException();
+           var user = await _dbContext.Users.Include(u => u.Incomes).Include(u => u.Expenditures).FirstOrDefaultAsync(u => u.Email == email);
+            return user;
         }
 
         public async Task<User> GetUserById(int id)
         {
-            return await _dbContext.Users.Include(u => u.Incomes).Include(u => u.Expenditures).FirstOrDefaultAsync(u => u.Id == id);
+            var user = await _dbContext.Users.Include(u => u.Incomes).Include(u => u.Expenditures).FirstOrDefaultAsync(u => u.Id == id);
+            return user;
         }
     }
 }

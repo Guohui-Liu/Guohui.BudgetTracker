@@ -19,14 +19,17 @@ namespace Guohui.BudgetTracker.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public Task<T> AddAsync(T entity)
+        public virtual async Task<T> AddAsync(T entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Set<T>().Add(entity);
+            await _dbContext.SaveChangesAsync();
+            return entity;
         }
 
-        public Task DeleteAsync(T entity)
+        public virtual async Task DeleteAsync(T entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Set<T>().Remove(entity);
+            await _dbContext.SaveChangesAsync();
         }
 
         public virtual async Task<T> GetByIdAsync(int id)
@@ -34,19 +37,21 @@ namespace Guohui.BudgetTracker.Infrastructure.Repositories
             return await _dbContext.Set<T>().FindAsync(id);
         }
 
-        public Task<IEnumerable<T>> ListAllAsync()
+        public virtual async Task<IEnumerable<T>> ListAllAsync()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Set<T>().ToListAsync();
         }
 
-        public Task<IEnumerable<T>> ListAsync(Expression<Func<T, bool>> filter)
+        public virtual async Task<IEnumerable<T>> ListAsync(Expression<Func<T, bool>> filter)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Set<T>().Where(filter).ToListAsync();
         }
 
-        public Task<T> UpdateAsync(T entity)
+        public virtual async Task<T> UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
+            return entity;
         }
     }
 }

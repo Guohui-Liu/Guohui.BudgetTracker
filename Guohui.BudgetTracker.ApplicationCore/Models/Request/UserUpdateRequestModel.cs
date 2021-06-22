@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Guohui.BudgetTracker.ApplicationCore.Models.Request
 {
-   public class UserRequestModel
+   public class UserUpdateRequestModel
     {
         public int Id { get; set; }
         public string Email { get; set; }

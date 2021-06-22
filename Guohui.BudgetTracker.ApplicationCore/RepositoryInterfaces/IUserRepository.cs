@@ -10,5 +10,7 @@ namespace Guohui.BudgetTracker.ApplicationCore.RepositoryInterfaces
     public interface IUserRepository: IAsyncRepository<User>
     {
         Task<User> GetUserByEmail(String email);
+
+        Task<User> GetUserById(int id);
     }
 }
