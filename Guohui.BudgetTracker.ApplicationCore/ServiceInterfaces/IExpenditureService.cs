@@ -1,4 +1,5 @@
 ﻿using Guohui.BudgetTracker.ApplicationCore.Models.Request;
+using Guohui.BudgetTracker.ApplicationCore.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,9 @@ namespace Guohui.BudgetTracker.ApplicationCore.ServiceInterfaces
     {
         Task AddExpenditure(ExpenditureRequestModel expenditureRequest);
         Task DeleteExpenditure(int id);
-        //Task<ExpenditureResponseModel> UpdateExpenditure(ExpenditureRequestModel expendituRequest);
-        //Task<IEnumerable<ExpenditureResponseModel>> GetAllExpendituresByUser(int id);
-        //Task<IEnumerable<ExpenditureResponseModel>> GetAllExpenditures();
+        Task<ExpenditureResponseModel> UpdateExpenditure(ExpenditureRequestModel expendituRequest);
+        Task<IEnumerable<ExpenditureResponseModel>> GetAllExpendituresByUser(int id);
+        Task<IEnumerable<ExpenditureResponseModel>> GetAllExpenditures();
+
     }
 }

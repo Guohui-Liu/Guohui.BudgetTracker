@@ -1,4 +1,5 @@
-﻿using Guohui.BudgetTracker.ApplicationCore.ServiceInterfaces;
+﻿using Guohui.BudgetTracker.ApplicationCore.Models.Request;
+using Guohui.BudgetTracker.ApplicationCore.ServiceInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -27,73 +28,44 @@ namespace Guohui.BudgetTracker.API.Controllers
             return Ok(user);
         }
 
-        //// GET: UserController/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
 
-        //// GET: UserController/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
+        [HttpGet("{id:int}/detail")]
+        public async Task<ActionResult> GetUserDetailById(int id)
+        {
+            var user = await _userService.GetUserDetailById(id);
+            return Ok(user);
+        }
 
-        //// POST: UserController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        [HttpGet("")]
+        public async Task<ActionResult> ListAllUsers()
+        {
+            var user = await _userService.ListAllUsers();
+            return Ok(user);
+        }
 
-        //// GET: UserController/Edit/5
-        //public ActionResult Edit(int id)
-        //{
-        //    return View();
-        //}
+        [HttpDelete("delete/{id:int}")]
+        public async Task<ActionResult> DeleteUser(int id)
+        {
+            await _userService.DeleteUser(id);
+            return Ok();
+        }
 
-        //// POST: UserController/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> UpdateUser([FromBody] UserUpdateRequestModel userUpdateRequest, int id)
+        {
+            var user =await _userService.UpdateUser(userUpdateRequest,id);
+            return Ok(user);
+        }
 
-        //// GET: UserController/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
+        [HttpPost]
+        [Route("Register")]
+        public async Task<ActionResult> RegisterUserAsync(UserRegisterRequestModel user)
+        {
+            var createdUser = await _userService.RegisterUser(user);
+            return Ok();
+        }
 
-        //// POST: UserController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(int id, IFormCollection collection)
-        //{
-        //    try
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+
+
     }
 }

@@ -44,7 +44,7 @@ namespace Guohui.BudgetTracker.Infrastructure.Services
         }
 
       
-        public async Task<List<UserListResponseModel>> ListAllUsersasync()
+        public async Task<List<UserListResponseModel>> ListAllUsers()
         {
             var users = await _userRepository.ListAllAsync();
             var list = new List<UserListResponseModel>();
@@ -87,24 +87,28 @@ namespace Guohui.BudgetTracker.Infrastructure.Services
             return response;
         }
 
-        public async Task<UserUpdateRequestModel> UpdateUser(UserUpdateRequestModel userRequest)
+        public async Task<UserUpdateRequestModel> UpdateUser(UserUpdateRequestModel userUpdateRequest, int id)
         {
+            var dbUser = await _userRepository.GetUserByEmail(userUpdateRequest.Email);
+
+            if (dbUser != null && string.Equals(dbUser.Email, userUpdateRequest.Email, StringComparison.CurrentCultureIgnoreCase))
+                throw new Exception("Email Already Exits");
+
             var user = new User
             {
-                Id = userRequest.Id,
-                Email = userRequest.Email,
-                FullName = userRequest.FullName,
-                Password = userRequest.Password,
-                JoinedOn = userRequest.JoinedOn
+                Id = id,
+                JoinedOn = DateTime.Now,
+                FullName = userUpdateRequest.FullName,
+                Password = userUpdateRequest.Password,
+                Email = userUpdateRequest.Email
             };
+
             var updatedUser = await _userRepository.UpdateAsync(user);
             var response = new UserUpdateRequestModel
             {
-                Id = userRequest.Id,
-                Email = userRequest.Email,
-                FullName = userRequest.FullName,
-                Password = userRequest.Password,
-                JoinedOn = userRequest.JoinedOn
+                Id = updatedUser.Id,
+                Email = updatedUser.Email,
+                FullName = updatedUser.FullName
             };
             return response;
         }
@@ -151,5 +155,10 @@ namespace Guohui.BudgetTracker.Infrastructure.Services
 
             return userResponseModel;
         }
+
+        //public Task<List<UserListResponseModel>> ListAllUsers()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

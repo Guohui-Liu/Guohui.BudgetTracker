@@ -15,10 +15,10 @@ namespace Guohui.BudgetTracker.ApplicationCore.ServiceInterfaces
         Task<UserListResponseModel> GetUserById(int id);
        
 
-        Task<UserUpdateRequestModel> UpdateUser(UserUpdateRequestModel userRequest);
+        Task<UserUpdateRequestModel> UpdateUser(UserUpdateRequestModel userUpdateRequest, int id);
         Task DeleteUser(int id);
 
-        Task<List<UserListResponseModel>> ListAllUsersasync();
+        Task<List<UserListResponseModel>> ListAllUsers();
         Task<UserDetailsResponseModel> GetUserDetailById(int id);
     }
 }
