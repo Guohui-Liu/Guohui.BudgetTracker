@@ -10,11 +10,11 @@ namespace Guohui.BudgetTracker.ApplicationCore.ServiceInterfaces
 {
     public interface IExpenditureService
     {
-        Task AddExpenditure(ExpenditureRequestModel expenditureRequest);
+        Task<ExpenditureResponseModel> AddExpenditure(ExpenditureRequestModel expenditureRequest, int userId);
         Task DeleteExpenditure(int id);
-        Task<ExpenditureResponseModel> UpdateExpenditure(ExpenditureRequestModel expendituRequest);
-        Task<IEnumerable<ExpenditureResponseModel>> GetAllExpendituresByUser(int id);
-        Task<IEnumerable<ExpenditureResponseModel>> GetAllExpenditures();
+        Task<ExpenditureResponseModel> UpdateExpenditure(ExpenditureRequestModel expendituRequest, int userId, int expenditureId);
+        Task<IEnumerable<ExpenditureResponseModel>> ListAllExpendituresByUser(int id);
+        Task<IEnumerable<ExpenditureResponseModel>> ListAllExpenditures();
 
     }
 }

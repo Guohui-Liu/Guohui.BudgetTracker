@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace Guohui.BudgetTracker.API.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class IncomeController : Controller
     {
         private readonly IIncomeService _incomeService;
@@ -17,7 +19,7 @@ namespace Guohui.BudgetTracker.API.Controllers
             _incomeService = incomeService;
         }
 
-        [HttpPost("addIncome")]
+        [HttpPost("{userId}addIncome")]
         public async Task<ActionResult> CreateIncome([FromBody] IncomeRequestModel incomeRequest, int userId)
         {
             await _incomeService.AddIncome(incomeRequest, userId);
@@ -37,7 +39,7 @@ namespace Guohui.BudgetTracker.API.Controllers
             var userIncomes = await _incomeService.ListAllIncomesByUser(id);
             return Ok(userIncomes);
         }
-        [HttpPut("{userid:int}")]
+        [HttpPut("{userId:int}/updateIncome/{incomeId:int}")]
         public async Task<ActionResult> UpdateIncome([FromBody] IncomeRequestModel incomeRequest, int userId, int incomeId)
         {
             await _incomeService.UpdateIncome(incomeRequest, userId, incomeId);
