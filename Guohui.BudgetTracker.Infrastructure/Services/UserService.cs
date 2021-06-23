@@ -108,7 +108,9 @@ namespace Guohui.BudgetTracker.Infrastructure.Services
             {
                 Id = updatedUser.Id,
                 Email = updatedUser.Email,
-                FullName = updatedUser.FullName
+                FullName = updatedUser.FullName,
+                Password = updatedUser.Password,
+                JoinedOn = updatedUser.JoinedOn
             };
             return response;
         }
