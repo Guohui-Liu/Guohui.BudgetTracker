@@ -37,4 +37,5 @@ Get User
 
 Get User Details
 ![](https://github.com/Guohui-Liu/Guohui.BudgetTracker/blob/master/picture/Get%20user%20detail.png)
+-------------------------------------
 
