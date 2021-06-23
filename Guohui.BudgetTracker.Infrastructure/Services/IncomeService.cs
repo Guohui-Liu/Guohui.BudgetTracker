@@ -20,11 +20,11 @@ namespace Guohui.BudgetTracker.Infrastructure.Services
             _incomeRepository = incomeRepository;
         }
 
-        public async Task<IncomeResponseModel> AddIncome(IncomeRequestModel incomeRequest, int userId)
+        public async Task<IncomeResponseModel> AddIncome(IncomeRequestModel incomeRequest)
         {
             var income = new Income
             {
-                UserId = userId,
+                UserId = incomeRequest.UserId,
                 Amount = incomeRequest.Amount,
                 Description = incomeRequest.Description,
                 IncomeDate = incomeRequest.IncomeDate,
@@ -35,6 +35,7 @@ namespace Guohui.BudgetTracker.Infrastructure.Services
             var response = new IncomeResponseModel
             {
                 Id = createdIncome.Id,
+                UserId = createdIncome.UserId,
                 Amount = createdIncome.Amount,
                 Description = createdIncome.Description,
                 IncomeDate = createdIncome.IncomeDate,
@@ -82,12 +83,12 @@ namespace Guohui.BudgetTracker.Infrastructure.Services
             return response;
         }
 
-        public async Task<IncomeResponseModel> UpdateIncome(IncomeRequestModel incomeRequest, int userId, int incomeId)
+        public async Task<IncomeResponseModel> UpdateIncome(IncomeRequestModel incomeRequest, int incomeId)
         {
             var income = new Income
             {
                 Id = incomeId,
-                UserId = userId,
+                UserId = incomeRequest.UserId,
                 Amount = incomeRequest.Amount,
                 Description = incomeRequest.Description,
                 IncomeDate = incomeRequest.IncomeDate,
@@ -97,6 +98,7 @@ namespace Guohui.BudgetTracker.Infrastructure.Services
             var response = new IncomeResponseModel
             {
                 Id = updatedIncome.Id,
+                UserId = updatedIncome.UserId,
                 Amount = updatedIncome.Amount,
                 Description = updatedIncome.Description,
                 IncomeDate = updatedIncome.IncomeDate,

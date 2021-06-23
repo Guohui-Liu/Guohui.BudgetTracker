@@ -41,19 +41,14 @@ namespace Guohui.BudgetTracker.API
             services.AddScoped<IAsyncRepository<Expenditure>, EfRepository<Expenditure>>();
             services.AddScoped<IAsyncRepository<User>, EfRepository<User>>();
 
-
-
             services.AddScoped<IUserRepository, UserRepository>();
-            //services.AddScoped<IIncomeRepository, IncomeRepository>();
-            //services.AddScoped<IExpenditureRepository, ExpenditureRepository>();
+            services.AddScoped<IIncomeRepository, IncomeRepository>();
+            services.AddScoped<IExpenditureRepository, ExpenditureRepository>();
 
 
             services.AddScoped<IUserService, UserService>();
-            //services.AddScoped<IIncomeService, IncomeService>();
-            //services.AddScoped<IExpenditureService, ExpenditureService>();
-
-
-
+            services.AddScoped<IIncomeService, IncomeService>();
+            services.AddScoped<IExpenditureService, ExpenditureService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -71,6 +66,11 @@ namespace Guohui.BudgetTracker.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Guohui.BudgetTracker.API v1"));
             }
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins(Configuration.GetValue<string>("angularSPAClientUrl")).AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+            });
+
 
             app.UseHttpsRedirection();
 

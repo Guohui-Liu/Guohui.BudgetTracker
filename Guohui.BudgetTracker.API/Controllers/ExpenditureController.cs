@@ -19,31 +19,31 @@ namespace Guohui.BudgetTracker.API.Controllers
          
         }
 
-        [HttpPost("{userId:int}/addexpenditure")]
-        public async Task<ActionResult> CreateExpenditure([FromBody] ExpenditureRequestModel expenditureRequest,int userId)
+        [HttpPost("")]
+        public async Task<ActionResult> CreateExpenditure([FromBody] ExpenditureRequestModel expenditureRequest)
         {
-            await _expendituresService.AddExpenditure(expenditureRequest, userId);
-            return Ok(expenditureRequest);
+            var expenditureResponse = await _expendituresService.AddExpenditure(expenditureRequest);
+            return Ok(expenditureResponse);
         }
 
-        [HttpDelete("deleteExpenditure/{id:int}")]
+        [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteExpenditure(int id)
         {
             await _expendituresService.DeleteExpenditure(id);
             return Ok();
         }
 
-        [HttpGet("{id:int}/expenditures")]
-        public async Task<ActionResult> GetUserExpendituresAsync(int id)
+        [HttpGet("User/{userId:int}")]
+        public async Task<ActionResult> GetUserExpendituresAsync(int userId)
         {
-            var userExpenditures = await _expendituresService.ListAllExpendituresByUser(id);
+            var userExpenditures = await _expendituresService.ListAllExpendituresByUser(userId);
             return Ok(userExpenditures);
         }
-        [HttpPut("{userId:int}/updateExpenditure/{expenditureId:int}")]
-        public async Task<ActionResult> UpdateExpenditure([FromBody] ExpenditureRequestModel expenditureRequest, int userId, int expenditureId)
+        [HttpPut("{Id:int}")]
+        public async Task<ActionResult> UpdateExpenditure([FromBody] ExpenditureRequestModel expenditureRequest, int Id)
         {
-            await _expendituresService.UpdateExpenditure(expenditureRequest, userId, expenditureId);
-            return Ok();
+            var response = await _expendituresService.UpdateExpenditure(expenditureRequest, Id);
+            return Ok(response);
         }
 
         [HttpGet("expenditures")]

@@ -29,7 +29,7 @@ namespace Guohui.BudgetTracker.API.Controllers
         }
 
 
-        [HttpGet("{id:int}/detail")]
+        [HttpGet("detail/{id:int}")]
         public async Task<ActionResult> GetUserDetailById(int id)
         {
             var user = await _userService.GetUserDetailById(id);

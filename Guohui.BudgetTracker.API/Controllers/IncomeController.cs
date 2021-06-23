@@ -19,31 +19,31 @@ namespace Guohui.BudgetTracker.API.Controllers
             _incomeService = incomeService;
         }
 
-        [HttpPost("{userId}addIncome")]
-        public async Task<ActionResult> CreateIncome([FromBody] IncomeRequestModel incomeRequest, int userId)
+        [HttpPost("")]
+        public async Task<ActionResult> CreateIncome([FromBody] IncomeRequestModel incomeRequest)
         {
-            await _incomeService.AddIncome(incomeRequest, userId);
-            return Ok();
+            var response = await _incomeService.AddIncome(incomeRequest);
+            return Ok(response);
         }
 
-        [HttpDelete("deleteIncome/{id:int}")]
+        [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteIncome(int id)
         {
             await _incomeService.DeleteIncome(id);
             return Ok();
         }
 
-        [HttpGet("{id:int}/incomes")]
-        public async Task<ActionResult> ListUserIncomesAsync(int id)
+        [HttpGet("User/{userId:int}")]
+        public async Task<ActionResult> ListUserIncomesAsync(int userId)
         {
-            var userIncomes = await _incomeService.ListAllIncomesByUser(id);
+            var userIncomes = await _incomeService.ListAllIncomesByUser(userId);
             return Ok(userIncomes);
         }
-        [HttpPut("{userId:int}/updateIncome/{incomeId:int}")]
-        public async Task<ActionResult> UpdateIncome([FromBody] IncomeRequestModel incomeRequest, int userId, int incomeId)
+        [HttpPut("{Id:int}")]
+        public async Task<ActionResult> UpdateIncome([FromBody] IncomeRequestModel incomeRequest, int Id)
         {
-            await _incomeService.UpdateIncome(incomeRequest, userId, incomeId);
-            return Ok();
+           var response = await _incomeService.UpdateIncome(incomeRequest, Id);
+            return Ok(response);
         }
 
         [HttpGet("incomes")]

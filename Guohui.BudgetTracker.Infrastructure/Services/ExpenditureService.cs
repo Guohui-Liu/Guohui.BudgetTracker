@@ -20,11 +20,11 @@ namespace Guohui.BudgetTracker.Infrastructure.Services
             _expenditureRepository = expenditureRepository;
         }
 
-        public async Task<ExpenditureResponseModel> AddExpenditure(ExpenditureRequestModel expenditureRequest, int userId)
+        public async Task<ExpenditureResponseModel> AddExpenditure(ExpenditureRequestModel expenditureRequest)
         {
             var expenditure = new Expenditure
             {
-                UserId = userId,
+                UserId = expenditureRequest.UserId,
                 Amount = expenditureRequest.Amount,
                 Description = expenditureRequest.Description,
                 ExpDate = expenditureRequest.ExpDate,
@@ -34,6 +34,7 @@ namespace Guohui.BudgetTracker.Infrastructure.Services
             var response = new ExpenditureResponseModel
             {
                 Id = createdExpenditure.Id,
+                UserId = createdExpenditure.UserId,
                 Amount = createdExpenditure.Amount,
                 Description = createdExpenditure.Description,
                 ExpDate = createdExpenditure.ExpDate,
@@ -49,12 +50,12 @@ namespace Guohui.BudgetTracker.Infrastructure.Services
         }
 
 
-        public async Task<ExpenditureResponseModel> UpdateExpenditure(ExpenditureRequestModel expenditureRequest, int userId, int expenditureId)
+        public async Task<ExpenditureResponseModel> UpdateExpenditure(ExpenditureRequestModel expenditureRequest, int expenditureId)
         {
             var expenditure = new Expenditure
             {
                 Id = expenditureId,
-                UserId = userId,
+                UserId = expenditureRequest.UserId,
                 Amount = expenditureRequest.Amount,
                 Description = expenditureRequest.Description,
                 ExpDate = expenditureRequest.ExpDate,
@@ -63,6 +64,7 @@ namespace Guohui.BudgetTracker.Infrastructure.Services
             var updatedExpenditure = await _expenditureRepository.UpdateAsync(expenditure);
             var response = new ExpenditureResponseModel
             {
+                Id =  updatedExpenditure.Id,
                 UserId = updatedExpenditure.UserId,
                 Amount = updatedExpenditure.Amount,
                 Description = updatedExpenditure.Description,
