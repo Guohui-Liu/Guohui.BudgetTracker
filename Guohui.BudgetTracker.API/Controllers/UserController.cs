@@ -14,11 +14,9 @@ namespace Guohui.BudgetTracker.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService/*, IExpenditureService expenditureService, IIncomeService incomeService*/)
+        public UserController(IUserService userService)
         {
             _userService = userService;
-            //_expendituresService = expenditureService;
-            //_incomeService = incomeService;
         }
        
         [HttpGet("{id:int}")]
@@ -43,7 +41,7 @@ namespace Guohui.BudgetTracker.API.Controllers
             return Ok(user);
         }
 
-        [HttpDelete("delete/{id:int}")]
+        [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteUser(int id)
         {
             await _userService.DeleteUser(id);
@@ -62,7 +60,7 @@ namespace Guohui.BudgetTracker.API.Controllers
         public async Task<ActionResult> RegisterUserAsync(UserRegisterRequestModel user)
         {
             var createdUser = await _userService.RegisterUser(user);
-            return Ok();
+            return Ok(createdUser);
         }
 
 

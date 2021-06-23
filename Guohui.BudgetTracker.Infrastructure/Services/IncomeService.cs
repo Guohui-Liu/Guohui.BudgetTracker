@@ -55,6 +55,7 @@ namespace Guohui.BudgetTracker.Infrastructure.Services
                 response.Add(new IncomeResponseModel
                 {
                     Id = income.Id,
+                    UserId = income .Id,
                     Amount = income.Amount,
                     Description = income.Description,
                     IncomeDate = income.IncomeDate,
